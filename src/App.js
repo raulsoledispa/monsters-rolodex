@@ -3,30 +3,13 @@ import { CardList } from './components/card-list/card-list'
 
 import './App.css';
 
-const monsters = [
-    {
-        name: 'Monter 1',
-        email: 'm1@gmail.com'
-    },
-    {
-        name: 'Monter 2',
-        email: 'm2@gmail.com'
-    },
-    {
-        name: 'Monter 3',
-        email: 'm3@gmail.com'
-    },
-    {
-        name: 'Monter 4',
-        email: 'm4@gmail.com'
-    }
-];
 class App extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            monsters: []
+            monsters: [],
+            searchField: ''
         }
     }
 
@@ -37,9 +20,12 @@ class App extends Component {
     }
 
     render() {
+        const { monsters, searchField } = this.state;
+        const filteredMonsters = monsters.filter(monster => monster.name.toLowerCase().includes(searchField.toLowerCase()))
     return(
         <div className="App">
-          <CardList monster={this.state.monsters} />
+            <input type="search" placeholder="search monster" onChange={e => this.setState({ searchField: e.target.value})} />
+            <CardList monster={filteredMonsters} />
         </div>
     );
   }
