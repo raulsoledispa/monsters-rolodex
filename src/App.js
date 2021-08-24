@@ -1,25 +1,48 @@
-import logo from './logo.svg';
+import { Component } from 'react';
+import { CardList } from './components/card-list/card-list'
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const monsters = [
+    {
+        name: 'Monter 1',
+        email: 'm1@gmail.com'
+    },
+    {
+        name: 'Monter 2',
+        email: 'm2@gmail.com'
+    },
+    {
+        name: 'Monter 3',
+        email: 'm3@gmail.com'
+    },
+    {
+        name: 'Monter 4',
+        email: 'm4@gmail.com'
+    }
+];
+class App extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            monsters: []
+        }
+    }
+
+    componentDidMount() {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+            .then(response => this.setState( { monsters: response }))
+    }
+
+    render() {
+    return(
+        <div className="App">
+          <CardList monster={this.state.monsters} />
+        </div>
+    );
+  }
 }
 
 export default App;
